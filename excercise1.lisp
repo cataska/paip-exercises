@@ -8,7 +8,7 @@
 
 (defun last-name (name)
   (if (member (first (last name)) *suffixes*)
-      (last-name (butlast name 1))
+      (last-name (butlast name))
       (first (last name))))
 
 ;; 1.2
