@@ -62,20 +62,23 @@
   (not (null (rewrites cat))))
 
 (defun generate (phrase)
-  (condp ((listp phrase)
-	  (mappend #'generate phrase))
-	 ((non-terminal? phrase)
-	  (generate (random-elt (rewrites phrase))))
-	 (t (list phrase))))
+  (cond ((listp phrase)
+	 (mappend #'generate phrase))
+	((non-terminal? phrase)
+	 (generate (random-elt (rewrites phrase))))
+	(t (list phrase))))
 
 ;; 2.3
 ;; Write a trivial grammar for some other language. This can be a
 ;; natural language other than English, or perhaps a subset of a computer language.
 (defparameter *x86assembly-grammar*
-  '((instruction -> (operator operand*))
-    (operator -> MOV ADD LEA)
-    (operand* -> (operand operand))
-    (operand -> %EAX %EBX %ECX %EDX)))
+  '((x86 -> (instruction operand*))
+    (instruction -> MOV ADD SUB MUL DIV AND OR XOR)
+    (operand* -> (register constant))
+    (register -> %EAX %EBX %ECX %EDX)
+    (constant -> 0 1 2 3 4 5 6 7 8 9)))
+
+(setf *grammar* *x86assembly-grammar*)
 
 ;; 2.4
 ;; One way to describing combine-all is that it calculates the cross-
