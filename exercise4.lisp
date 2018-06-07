@@ -5,8 +5,7 @@
 ;; you figure out the format directives to do this?
 (defun new-dbg (id format-string &rest args)
   (when (member id *dbg-ids*)
-    (let ((new-format-string (concatenate 'string "~&" format-string)))
-      (format *debug-io* new-format-string args))))
+    (format *debug-io* "~&~?" new-format-string args)))
 
 ;; 4.2
 ;; Write a function that generates all permutations of its input.
